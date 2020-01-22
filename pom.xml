@@ -11,7 +11,7 @@
 	<groupId>com.cursoudemy</groupId>
 	<artifactId>springboot2mongodb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>SpringbooAndMongodbDemo</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
