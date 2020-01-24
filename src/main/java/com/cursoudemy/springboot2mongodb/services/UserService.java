@@ -1,6 +1,7 @@
 package com.cursoudemy.springboot2mongodb.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cursoudemy.springboot2mongodb.domain.User;
 import com.cursoudemy.springboot2mongodb.repository.UserRepository;
@@ -25,6 +26,11 @@ public class UserService {
     public User save(User user) {
         User newUser = repository.save(user);
         return newUser;
+    }
+
+    public User getById(String id) {
+        Optional<User> user = repository.findById(id);
+        return user.get();
     }
 
 }
