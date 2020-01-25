@@ -3,8 +3,10 @@ package com.cursoudemy.springboot2mongodb.resources;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cursoudemy.springboot2mongodb.domain.User;
+import com.cursoudemy.springboot2mongodb.dto.UserDTO;
 import com.cursoudemy.springboot2mongodb.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,20 @@ public class UserResource {
         this.service = service;
     }
 
+    /**
+     * DTOs são geralmente usados para previnir uma queda de desempenho que uma
+     * transferencia de um objeto muito grande pode causar através da rede. Em um
+     * contexto local e pequeno, eles não são necessarios, pelo contrário, apenas
+     * aumentam a complexidade da aplicação, seu uso aqui resume-se apenas a um
+     * exemplo.
+     * 
+     * @return
+     */
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
-        List<User> users = new ArrayList<>();
-        users = service.findAll();
-        return ResponseEntity.ok().body(users);
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<User> users = service.findAll();
+        List<UserDTO> listDto = users.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping(value = "/{id}")
