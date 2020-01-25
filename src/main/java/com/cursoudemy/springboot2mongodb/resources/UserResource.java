@@ -1,13 +1,12 @@
 package com.cursoudemy.springboot2mongodb.resources;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.cursoudemy.springboot2mongodb.domain.User;
 import com.cursoudemy.springboot2mongodb.dto.UserDTO;
-import com.cursoudemy.springboot2mongodb.services.UserService;
+import com.cursoudemy.springboot2mongodb.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +46,9 @@ public class UserResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id) {
-        User user = service.getById(id);
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        UserDTO userDto = new UserDTO(service.findById(id));
+        return ResponseEntity.ok().body(userDto);
     }
 
     @PutMapping
