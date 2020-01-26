@@ -24,15 +24,20 @@ public class UserService {
         return repository.findAll();
     }
 
+    public User findById(String id) {
+        Optional<User> userOptinal = repository.findById(id);
+        // orElseThrow: retorna o objeto contido, se não, lança a exceção fornecida pela
+        // função anônima.
+        return userOptinal.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
     public User insert(User user) {
         User newUser = repository.insert(user);
         return newUser;
     }
 
-    public User findById(String id) {
-        Optional<User> userOptinal = repository.findById(id);
-        // orElseThrow: retorna o objeto contido, se não, lança a exceção fornecida pela função anônima.
-        return userOptinal.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    public void delete(String id) {
+        findById(id);
+        repository.deleteById(id);
     }
-
 }
