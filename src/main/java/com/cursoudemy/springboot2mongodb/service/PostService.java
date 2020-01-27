@@ -1,5 +1,7 @@
 package com.cursoudemy.springboot2mongodb.service;
 
+import java.util.List;
+
 import com.cursoudemy.springboot2mongodb.domain.Post;
 import com.cursoudemy.springboot2mongodb.repository.PostRepository;
 import com.cursoudemy.springboot2mongodb.service.exception.ObjectNotFoundException;
@@ -22,5 +24,9 @@ public class PostService {
 
   public Post findById(String id) {
     return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("O objeto não pode ser encontrado"));
+  }
+
+  public List<Post> findByTitle(String text) {
+    return repository.findByTitleContainingIgnoreCase(text);
   }
 }
