@@ -61,6 +61,16 @@ public class UserResource {
         return ResponseEntity.ok().body(posts);
     }
 
+    @GetMapping(value = "/{id}/posts/{pid}")
+    public ResponseEntity<Post> getPostById(@PathVariable String id, @PathVariable String pid) {
+
+        User user = service.findById(id);
+        List<Post> post = user.getPosts().stream().filter(x -> x.getId().equals(pid)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(post.get(0));
+
+    }
+
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user) {
         User userEntity = service.insert(user);
