@@ -40,4 +40,15 @@ public class UserService {
         findById(id);
         repository.deleteById(id);
     }
+
+    public User update(User user) {
+        User userEntity = findById(user.getId());
+        fillEntity(userEntity, user);
+        return repository.save(userEntity);
+    }
+
+    private void fillEntity(User userEntity, User user) {
+        userEntity.setName(user.getName());
+        userEntity.setEmail(user.getEmail());
+    }
 }
